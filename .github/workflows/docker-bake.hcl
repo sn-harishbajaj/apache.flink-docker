@@ -28,7 +28,7 @@ target "bake-platform" {
   inherits = ["docker-metadata-action"]
   dockerfile = "$DOCKER_FILE"
   context = "./"
-  tags = ["${TAG}"]
+  tags = ["1.16.3-patch-2025-03"]
   platforms = [
     "linux/amd64",
     "linux/arm64/v8",
