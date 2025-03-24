@@ -22,6 +22,7 @@ FROM eclipse-temurin:11-jre-jammy
 RUN set -ex; \
   apt-get update; \
   apt-get -y install gpg libsnappy1v5 gettext-base libjemalloc-dev; \
+  apt-get -y upgrade libkrb5-3; \
   rm -rf /var/lib/apt/lists/*
 
 # Grab gosu for easy step-down from root
