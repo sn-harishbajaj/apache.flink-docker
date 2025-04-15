@@ -51,7 +51,9 @@ function generateReleaseMetadata {
     # example "scala_2.12-java11"
     scala_tag="scala_${scala_version}${java_suffix}"
 
-    tags="$full_tag, $short_tag, $scala_tag"
+    rebuild_tag="${flink_version}-2025-04"
+ 
+    tags="$full_tag, $short_tag, $scala_tag, $rebuild_tag"
 
     if [[ "$java_version" == "$DEFAULT_JAVA" ]]; then
         # example "1.2.0-scala_2.11"
