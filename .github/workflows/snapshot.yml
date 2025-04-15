@@ -36,9 +36,9 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
+        java_version: [11]
         build:
           - flink_version: 1.17-SNAPSHOT
-            java_version: [11]
             branch: dev-1.17-patched
     steps:
       - uses: actions/checkout@v4
