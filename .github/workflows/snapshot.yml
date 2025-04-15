@@ -22,13 +22,13 @@ on:
 
 env:
   REGISTRY:    ghcr.io
-  OWNER:       apache
-  IMAGE_REPO:  flink-docker
+  OWNER:       sn-harishbajaj
+  IMAGE_REPO:  apache.flink-docker
 
 jobs:
   snapshot:
     # Do not run for forks.
-    if: github.repository_owner == 'apache'
+    if: github.repository_owner == 'sn-harishbajaj'
     runs-on: ubuntu-latest
     permissions:
       contents: read
