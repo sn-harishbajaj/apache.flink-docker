@@ -39,7 +39,7 @@ jobs:
         build:
           - flink_version: 1.17-SNAPSHOT
             java_version: [11]
-            branch: dev-1.17
+            branch: dev-1.17-patched
     steps:
       - uses: actions/checkout@v4
         with:
