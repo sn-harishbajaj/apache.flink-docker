@@ -16,8 +16,6 @@
 name: "Publish SNAPSHOTs"
 
 on:
-  schedule:
-    - cron: '0 0 * * *' # Deploy every day
   workflow_dispatch:
 
 env:
