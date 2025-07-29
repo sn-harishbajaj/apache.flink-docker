@@ -56,9 +56,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Generate patch date
+        run: |
+          PATCH_DATE=$(date +%Y-%m-%d)
+          echo "PATCH_DATE=${PATCH_DATE}" >> $GITHUB_ENV
+          echo "Generated patch date: ${PATCH_DATE}"
+
       - name: Prepare Dockerfiles and set env
         run: |
-          IMAGE_NAME=${{ matrix.build.flink_version }}-scala_2.12-java${{ matrix.java_version }}
+          FLINK_VERSION="1.17-patch-${PATCH_DATE}"
+          IMAGE_NAME=${FLINK_VERSION}-scala_2.12-java${{ matrix.java_version }}
           echo "IMAGE_NAME=${IMAGE_NAME}" >> $GITHUB_ENV
           echo "TAG=${REGISTRY}/${OWNER}/${IMAGE_REPO}:${IMAGE_NAME}-debian" >> $GITHUB_ENV
           ./add-custom.sh -u "https://s3.amazonaws.com/flink-nightly/flink-${{ matrix.build.flink_version }}-bin-scala_2.12.tgz" -j ${{ matrix.java_version }} -n ${IMAGE_NAME}
@@ -69,6 +76,8 @@ jobs:
 
       - name: Build and push Docker images (supported platforms)
         uses: docker/bake-action@v4
+        env:
+          PATCH_DATE: ${{ env.PATCH_DATE }}
         with:
           files: |
             .github/workflows/docker-bake.hcl

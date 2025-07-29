@@ -20,6 +20,10 @@ variable TAG {
     default = "latest-snapshot"
 }
 
+variable PATCH_DATE {
+    default = "1970-01-01"
+}
+
 variable DOCKER_FILE {
     default = "Dockerfile"
 }
@@ -28,7 +32,7 @@ target "bake-platform" {
   inherits = ["docker-metadata-action"]
   dockerfile = "$DOCKER_FILE"
   context = "./"
-  tags = ["1.17.2-patch-2025-04"]
+  tags = ["1.17-patch-${PATCH_DATE}"]
   platforms = [
     "linux/amd64",
     "linux/arm64/v8",
