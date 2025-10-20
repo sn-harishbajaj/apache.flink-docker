@@ -22,6 +22,7 @@ FROM eclipse-temurin:11-jre-jammy
 RUN set -ex; \
   apt-get update; \
   apt-get -y install gpg libsnappy1v5 gettext-base libjemalloc-dev; \
+  apt-get -y install --no-install-recommends sqlite3; \
   rm -rf /var/lib/apt/lists/*
 
 # Grab gosu for easy step-down from root
