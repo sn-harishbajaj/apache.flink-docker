@@ -30,8 +30,7 @@ RUN set -ex; \
   wget -nv -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)"; \
   wget -nv -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc"; \
   export GNUPGHOME="$(mktemp -d)"; \
-  for server in ha.pool.sks-keyservers.net $(shuf -e \
-                          hkp://p80.pool.sks-keyservers.net:80 \
+  for server in hkps://keys.openpgp.org $(shuf -e \
                           keyserver.ubuntu.com \
                           hkp://keyserver.ubuntu.com:80 \
                           pgp.mit.edu) ; do \
@@ -44,9 +43,9 @@ RUN set -ex; \
   gosu nobody true
 
 # Configure Flink version
-ENV FLINK_TGZ_URL=https://dlcdn.apache.org/flink/flink-2.0.0/flink-2.0.0-bin-scala_2.12.tgz \
-    FLINK_ASC_URL=https://downloads.apache.org/flink/flink-2.0.0/flink-2.0.0-bin-scala_2.12.tgz.asc \
-    GPG_KEY=F8E419AA0B60C28879E876859DFF40967ABFC5A4 \
+ENV FLINK_TGZ_URL=https://dlcdn.apache.org/flink/flink-2.0.1/flink-2.0.1-bin-scala_2.12.tgz \
+    FLINK_ASC_URL=https://downloads.apache.org/flink/flink-2.0.1/flink-2.0.1-bin-scala_2.12.tgz.asc \
+    GPG_KEY=E60A9680590FF0FF13B9DE01224C2311410823C4 \
     CHECK_GPG=true
 
 # Prepare environment
@@ -63,8 +62,7 @@ RUN set -ex; \
   if [ "$CHECK_GPG" = "true" ]; then \
     wget -nv -O flink.tgz.asc "$FLINK_ASC_URL"; \
     export GNUPGHOME="$(mktemp -d)"; \
-    for server in ha.pool.sks-keyservers.net $(shuf -e \
-                            hkp://p80.pool.sks-keyservers.net:80 \
+    for server in hkps://keys.openpgp.org $(shuf -e \
                             keyserver.ubuntu.com \
                             hkp://keyserver.ubuntu.com:80 \
                             pgp.mit.edu) ; do \
