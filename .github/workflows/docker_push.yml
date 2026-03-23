@@ -31,7 +31,7 @@ on:
 env:
   REGISTRY: ghcr.io
   OWNER: ${{ github.repository_owner }}
-  IMAGE_REPO: flink-docker
+  IMAGE_REPO: ${{ github.event.repository.name }}
 
 jobs:
   build_and_push:
