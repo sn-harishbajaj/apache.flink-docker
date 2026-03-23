@@ -136,6 +136,12 @@ jobs:
           SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
           TAGS="${TAGS},${REGISTRY}/${OWNER}/${IMAGE_REPO}:${BASE_TAG}-${SHORT_SHA}"
 
+          # Add patch tag for manual dispatch
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            PATCH_DATETIME=$(date -u '+%Y-%m-%dT%H-%M-%SZ')
+            TAGS="${TAGS},${REGISTRY}/${OWNER}/${IMAGE_REPO}:${FULL_VERSION}-java${JAVA_VERSION}-patch-${PATCH_DATETIME}-${SHORT_SHA}"
+          fi
+
           echo "tags=$TAGS" >> $GITHUB_OUTPUT
           echo "Image tags: $TAGS"
 
