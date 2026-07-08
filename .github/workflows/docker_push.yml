@@ -43,6 +43,31 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # --- Retired versions (out of upstream support) ---
+          # These are pinned here permanently for CVE patching only — they are
+          # not present on `master` and are never merged back there.
+          - flink_version: "1.16"
+            java_version: "8"
+            dockerfile: "1.16/scala_2.12-java8-ubuntu/Dockerfile"
+          - flink_version: "1.16"
+            java_version: "11"
+            dockerfile: "1.16/scala_2.12-java11-ubuntu/Dockerfile"
+          - flink_version: "1.17"
+            java_version: "8"
+            dockerfile: "1.17/scala_2.12-java8-ubuntu/Dockerfile"
+          - flink_version: "1.17"
+            java_version: "11"
+            dockerfile: "1.17/scala_2.12-java11-ubuntu/Dockerfile"
+          - flink_version: "1.18"
+            java_version: "8"
+            dockerfile: "1.18/scala_2.12-java8-ubuntu/Dockerfile"
+          - flink_version: "1.18"
+            java_version: "11"
+            dockerfile: "1.18/scala_2.12-java11-ubuntu/Dockerfile"
+          - flink_version: "1.18"
+            java_version: "17"
+            dockerfile: "1.18/scala_2.12-java17-ubuntu/Dockerfile"
+          # --- Currently-supported versions (mirrors master) ---
           # Flink 1.20.x
           - flink_version: "1.20"
             java_version: "8"
@@ -147,8 +172,6 @@ jobs:
           platforms: linux/amd64,linux/arm64/v8
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
       - name: Summary
         if: github.event_name != 'pull_request'
